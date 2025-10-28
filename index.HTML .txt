@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SIMBIOSIS — Ciencias Naturales</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1: #13021f;
+  --bg2: #4b0f4a;
+  --bg3: #7a2fb8;
+  --accent: #d5b3ff;
+  --card: rgba(255,255,255,0.04);
+  --glass: rgba(255,255,255,0.06);
+  --maxw: 1200px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(255,255,255,0.03), transparent 8%),
+    radial-gradient(900px 500px at 90% 90%, rgba(255,255,255,0.02), transparent 8%),
+    linear-gradient(135deg,var(--bg1), var(--bg2) 40%, var(--bg3));
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.6;
+  background-attachment: fixed;
+}
+
+/* Topbar */
+.topbar{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 24px;
+  position:sticky;
+  top:0;
+  z-index:80;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.05));
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.brand h1{margin:0;font-size:20px;letter-spacing:2px}
+.brand .subtitle{margin:0;font-size:12px;opacity:0.95}
+.nav{display:flex;gap:12px;align-items:center}
+.nav a{
+  color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600;font-size:13px;opacity:0.95;
+}
+.nav a:hover{background:rgba(255,255,255,0.04)}
+.menu-toggle{display:none;background:none;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:8px 10px;border-radius:8px}
+
+/* Layout */
+.container{max-width:var(--maxw);margin:26px auto;padding:0 20px 80px}
+.hero{display:flex;align-items:center;justify-content:center;padding:36px 0}
+.hero-grid{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:center}
+.hero-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:26px;border-radius:14px;box-shadow: 0 12px 40px rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.04);
+}
+.hero-card h2{margin:0;font-size:26px;letter-spacing:1px}
+.hero-card p{opacity:0.95;margin-top:12px}
+.hero-cta{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap}
+.hero-side{padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));text-align:center}
+.hero-side img{width:100%;border-radius:10px;display:block;border:1px solid rgba(255,255,255,0.03)}
+
+/* Sections */
+.card{margin:18px 0;padding:22px;border-radius:12px;background:var(--card);border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(4px)}
+.card h2{margin-top:0;font-size:20px;display:flex;align-items:center;gap:10px}
+.card h3{margin-bottom:8px;font-size:16px}
+.card ul, .card ol{margin-left:18px}
+.table{width:100%;border-collapse:collapse;margin-top:10px}
+.table th,.table td{padding:10px;border-bottom:1px solid rgba(255,255,255,0.04);text-align:left}
+.note{margin-top:10px;padding:12px;background:rgba(213,179,255,0.06);border-radius:8px;border:1px solid rgba(213,179,255,0.08);color:#f8f3ff}
+
+/* buttons */
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;background:linear-gradient(180deg,var(--accent), #9b6ef7);color:#220036;text-decoration:none;font-weight:700;box-shadow:0 10px 30px rgba(123,55,175,0.18)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);font-weight:600;color:#fff}
+
+/* media */
+.media{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.media img{width:100%;max-width:320px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 10px 30px rgba(0,0,0,0.45)}
+
+/* footer */
+.footer{padding:26px;text-align:center;opacity:0.9;font-size:13px;margin-top:28px}
+
+/* responsive */
+@media (max-width:1100px){ .hero-grid{grid-template-columns:1fr} }
+@media (max-width:900px){
+  .nav{display:none}
+  .menu-toggle{display:inline-block}
+  .brand h1{font-size:18px}
+  .hero-card h2{font-size:22px}
+  .container{padding:8px}
+  .visible{display:flex !important;flex-direction:column;align-items:flex-start;gap:10px;background:rgba(0,0,0,0.4);position:absolute;top:60px;left:0;width:100%;padding:15px;}
+}
+
+/* small helpers */
+.sep {height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);margin:18px 0;border-radius:6px}
+.anchor {display:inline-block;margin-left:8px;background: rgba(255,255,255,0.06);padding:2px 8px;border-radius:999px;font-size:12px;color:#fff;opacity:0.95}
+.small{font-size:13px;opacity:0.95}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <h1>SIMBIOSIS</h1>
+    <p class="subtitle">Ciencias Naturales — Investigación</p>
+  </div>
+
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="#definicion">Definición</a>
+    <a href="#tipos">Tipos</a>
+    <a href="#comensalismo">Comensalismo</a>
+    <a href="#amensalismo">Amensalismo</a>
+    <a href="#parasitismo">Parasitismo</a>
+    <a href="#evolucion">Evolución</a>
+    <a href="#rol">Rol ecológico</a>
+    <a href="#coevolucion">Coevolución</a>
+    <a href="#autores">Autores</a>
+  </nav>
+
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+</header>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-grid">
+      <div class="hero-card">
+        <h2>La simbiosis: el pilar invisible de la vida</h2>
+        <p>Relaciones íntimas entre organismos que modelan ecosistemas y evolución: mutualismo, comensalismo, amensalismo y parasitismo. En esta web encontrarás definiciones, ejemplos, subtipos, mecanismos y aplicaciones.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#definicion">Empezar</a>
+          <a class="btn ghost" href="#parasitismo">Ir a parasitismo</a>
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <!-- SVG líquido (líquen) insertado como data URI -->
+        <img alt="Líquenes - ejemplo" src='data:image/svg+xml;utf8,
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+          <rect width="100%" height="100%" rx="12" fill="%23131" />
+          <g transform="translate(20,30)" fill="%23d6c1ff">
+            <ellipse cx="80" cy="60" rx="70" ry="35" opacity="0.95"/>
+            <ellipse cx="40" cy="40" rx="30" ry="18" opacity="0.85"/>
+            <ellipse cx="120" cy="30" rx="35" ry="18" opacity="0.85"/>
+          </g>
+          <text x="16" y="185" font-size="12" fill="%23fff" font-family="Poppins, sans-serif">Líquenes (hongo + alga)</text>
+        </svg>'>
+        <p class="small" style="margin-top:8px">Líquenes: mutualismo clásico entre hongo y alga/cianobacteria.</p>
+      </aside>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- DEFINICIÓN -->
+  <section id="definicion" class="card">
+    <h2>📖 Definición y origen <span class="anchor">1879</span></h2>
+    <p><strong>Simbiosis</strong> (gr. <em>syn</em> = "con", <em>bios</em> = "vida") significa "vivir juntos". El término lo usó Albert Bernhard Frank y fue desarrollado por Heinrich de Bary. Actualmente abarca interacciones íntimas y duraderas entre especies distintas —beneficiosas, neutras o dañinas— que afectan ecología y evolución.</p>
+
+    <h3>Características principales</h3>
+    <ul>
+      <li>Proximidad física: contacto constante o periódico (endosimbiosis o ectosimbiosis).</li>
+      <li>Duración prolongada: permite coevolución.</li>
+      <li>Beneficio variable: mutualismo, comensalismo, parasitismo, etc.</li>
+      <li>Dependencia: puede ser obligada o facultativa.</li>
+      <li>Impacto ecológico y evolutivo: cambia comunidades y genera nuevas adaptaciones.</li>
+    </ul>
+
+    <div class="note">💡 Importante: la simbiosis no es sinónimo de “ayuda mutua”; incluye relaciones donde una parte sale perjudicada o donde la relación es neutral para una de las partes.</div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- TIPOS -->
+  <section id="tipos" class="card">
+    <h2>🔸 Tipos principales de simbiosis</h2>
+    <p>Clasificación por efecto y por contacto.</p>
+
+    <h3>Según el efecto</h3>
+    <ul>
+      <li><strong>Mutualismo</strong>: ambas especies se benefician.</li>
+      <li><strong>Comensalismo</strong>: una se beneficia; la otra no se afecta.</li>
+      <li><strong>Amensalismo</strong>: una se perjudica; la otra no se afecta.</li>
+      <li><strong>Parasitismo</strong>: una se beneficia a costa de la otra.</li>
+      <li><strong>Neutralismo</strong>: coexistencia sin efecto relevante (raro).</li>
+    </ul>
+
+    <h3>Según contacto</h3>
+    <ul>
+      <li><strong>Endosimbiosis</strong>: simbionte dentro del organismo huésped (ej. mitocondrias).</li>
+      <li><strong>Ectosimbiosis</strong>: simbionte sobre la superficie del huésped (ej. rémoras).</li>
+    </ul>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- COMENSALISMO -->
+  <section id="comensalismo" class="card">
+    <h2>🧩 A. Comensalismo</h2>
+    <p><strong>Definición:</strong> Una especie se beneficia mientras la otra no se ve afectada ni positiva ni negativamente.</p>
+
+    <h3>Origen del término</h3>
+    <p>Del latín <em>com mensa</em> = "compartir la mesa": alude a obtener sobras sin dañar al otro.</p>
+
+    <h3>Características</h3>
+    <ul>
+      <li>Positivo para uno, neutral para otro.</li>
+      <li>Sin intercambio directo ni perjuicio.</li>
+      <li>Puede ser temporal o permanente.</li>
+    </ul>
+
+    <h3>Ejemplos</h3>
+    <ol>
+      <li><strong>Rémoras y tiburones</strong>: rémoras se adhieren y comen restos; el tiburón no se beneficia ni se perjudica.</li>
+      <li><strong>Garzas y ganado</strong>: garzas comen insectos removidos por el ganado.</li>
+      <li><strong>Orquídeas epífitas</strong>: viven en ramas para recibir luz sin extraer nutrientes del árbol.</li>
+    </ol>
+
+    <h3>Subtipos</h3>
+    <table class="table" summary="Subtipos de comensalismo">
+      <thead><tr><th>Subtipo</th><th>Descripción</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Inquilinismo</td><td>Vive dentro o encima sin dañar</td><td>Cangrejo ermitaño</td></tr>
+        <tr><td>Foresia</td><td>Transporte</td><td>Ácaros en insectos</td></tr>
+        <tr><td>Metabiosis</td><td>Uso de restos/estructuras</td><td>Aves en troncos huecos</td></tr>
+      </tbody>
+    </table>
+
+    <div class="media" aria-hidden="false">
+      <!-- Rémora SVG -->
+      <img alt="Rémora y tiburón (icono)" src='data:image/svg+xml;utf8,
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 120"><rect rx="8" width="100%" height="100%" fill="%231b0b2a"/><g transform="translate(10,20)" fill="%23fff"><ellipse cx="150" cy="45" rx="50" ry="22" opacity="0.18"/><path d="M20 50c8-18 34-26 58-22 18 3 34 13 54 13 10 0 20-3 30-6" stroke="%23d6b7ff" stroke-width="3" fill="none" stroke-linecap="round"/></g><text x="8" y="115" font-size="10" fill="%23fff" font-family="Poppins, sans-serif">Rémora (viaja con tiburón)</text></svg>'>
+      <!-- Garza SVG -->
+      <img alt="Garza y ganado (icono)" src='data:image/svg+xml;utf8,
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 120"><rect rx="8" width="100%" height="100%" fill="%231b0b2a"/><g transform="translate(12,18)" fill="%23fff"><circle cx="40" cy="40" r="22" opacity="0.1"/><path d="M80 20c18 6 28 22 22 36" stroke="%23d6b7ff" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M20 80c18-20 70-30 120-14" stroke="%23d6b7ff" stroke-width="3" fill="none" stroke-linecap="round"/></g><text x="8" y="115" font-size="10" fill="%23fff" font-family="Poppins, sans-serif">Garza y ganado</text></svg>'>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- AMENSALISMO -->
+  <section id="amensalismo" class="card">
+    <h2>⚫ B. Amensalismo</h2>
+    <p><strong>Definición:</strong> Una especie se perjudica mientras la otra no se ve afectada; daño unilateral sin beneficio del agresor.</p>
+
+    <h3>Características</h3>
+    <ul>
+      <li>Interacción negativa unilateral.</li>
+      <li>Frecuente en competencia química (alelopatía) o por sombra física.</li>
+      <li>Impacta comunidades microbianas y vegetales.</li>
+    </ul>
+
+    <h3>Ejemplos</h3>
+    <ol>
+      <li><strong>Penicillium vs bacterias</strong>: el hongo libera penicilina que mata bacterias cercanas.</li>
+      <li><strong>Árboles de copa densa</strong>: bloquean luz y evitan crecimiento bajo su copa.</li>
+      <li><strong>Eucaliptos</strong>: hojas con compuestos que inhiben la germinación de otras plantas.</li>
+    </ol>
+
+    <div class="note">🔬 El amensalismo regula poblaciones y puede cambiar la estructura de comunidades —importante en agricultura y manejo de bosques.</div>
+
+    <div class="media">
+      <!-- Penicillium icon -->
+      <img alt="Penicillium (icono)" src='data:image/svg+xml;utf8,
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 140"><rect rx="8" width="100%" height="100%" fill="%23130b20"/><g transform="translate(18,20)" fill="%23d6b7ff"><circle cx="40" cy="40" r="20"/><circle cx="70" cy="30" r="14"/><circle cx="100" cy="45" r="18"/><rect x="30" y="70" width="120" height="10" rx="5"/></g><text x="16" y="130" font-size="10" fill="%23fff" font-family="Poppins, sans-serif">Penicillium (hongo productor de antibióticos)</text></svg>'>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- PARASITISMO -->
+  <section id="parasitismo" class="card">
+    <h2>🦠 C. Parasitismo</h2>
+    <p><strong>Definición:</strong> Relación desigual en la que el parásito obtiene beneficio (alimento, refugio o reproducción) y el huésped resulta perjudicado, aunque suele mantenerse vivo para que el parásito continúe beneficiándose.</p>
+
+    <h3>Clasificación básica</h3>
+    <ul>
+      <li><strong>Ectoparásitos:</strong> sobre la piel (piojos, pulgas, garrapatas).</li>
+      <li><strong>Endoparásitos:</strong> dentro del cuerpo (tenias, lombrices, protozoos).</li>
+      <li><strong>Obligados / Facultativos / Temporales:</strong> según dependencia y duración.</li>
+    </ul>
+
+    <h3>Casos especiales</h3>
+    <p>Parasitismo reproductivo (cuco), social (explotación de trabajo), y parasitismo conductual (Cordyceps manipula comportamiento de hormigas).</p>
+
+    <h3>10 ejemplos destacados</h3>
+    <ol>
+      <li>Cordyceps unilateralis — hormigas carpinteras (manipulación conductual y muerte del huésped).</li>
+      <li>Avispas parasitoides (Ichneumonidae, Braconidae) — colocan huevos en orugas/hormigas; larvas consumen al huésped.</li>
+      <li>Taenia solium — tenia intestinal (humanos/cerdos).</li>
+      <li>Pediculus humanus — piojos en humanos (ectoparásito).</li>
+      <li>Ixodes ricinus — garrapatas (vectores de enfermedades).</li>
+      <li>Anopheles spp. — mosquito transmisor de Plasmodium (parásito temporal y vector).</li>
+      <li>Ascaris lumbricoides — lombriz intestinal humana.</li>
+      <li>Cuculus canorus (cuco) — parasitismo reproductivo en aves.</li>
+      <li>Virus de la rabia — afecta el sistema nervioso en mamíferos.</li>
+      <li>Cuscuta campestris (cabello de ángel) — planta hemiparásita que extrae agua y nutrientes de otras plantas.</li>
+    </ol>
+
+    <div class="media">
+      <!-- Cordyceps SVG -->
+      <img alt="Cordyceps (icono)" src='data:image/svg+xml;utf8,
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 140"><rect rx="8" width="100%" height="100%" fill="%23120b1a"/><g transform="translate(20,18)" fill="%23ffd8f9"><path d="M30 80c12-28 50-38 90-26 18 6 34 18 54 12" stroke="%23ffd8f9" stroke-width="3" fill="none" stroke-linecap="round"/></g><text x="14" y="132" font-size="10" fill="%23fff" font-family="Poppins, sans-serif">Cordyceps (hongo parasitario)</text></svg>'>
+
+      <!-- Taenia SVG -->
+      <img alt="Tenia (icono)" src='data:image/svg+xml;utf8,
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 140"><rect rx="8" width="100%" height="100%" fill="%23120b1a"/><g transform="translate(18,18)" fill="%23ffefdb"><path d="M10 70c30-22 90-24 140-6" stroke="%23ffefdb" stroke-width="6" fill="none" stroke-linecap="round"/></g><text x="14" y="132" font-size="10" fill="%23fff" font-family="Poppins, sans-serif">Tenia (parásito intestinal)</text></svg>'>
+    </div>
+
+    <div class="note">⚠️ Además del impacto ecológico, el parasitismo impulsa la evolución de defensas y estrategias de evasión (coevolución huésped-parásito).</div>
+
+    <div style="margin-top:12px">
+      <h3>Parasitismo humano / social (analogías)</h3>
+      <ul>
+        <li>Amigo aprovechado: pide favores sin devolverlos.</li>
+        <li>Pareja dependiente: vive del otro sin aportar.</li>
+        <li>Compañero de trabajo “colgado”: no hace su parte pero toma mérito.</li>
+        <li>Relaciones laborales abusivas: jefe que explota empleados.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- IMPORTANCIA EVOLUTIVA -->
+  <section id="evolucion" class="card">
+    <h2>🧬 Importancia evolutiva (teoría endosimbiótica)</h2>
+    <p>La teoría endosimbiótica de Lynn Margulis propone que las células eucariotas surgieron por la incorporación de bacterias dentro de una célula huésped primitiva:</p>
+    <ul>
+      <li>Una célula mayor engulló a bacterias que, en lugar de ser digeridas, convivieron.</li>
+      <li>Esas bacterias se especializaron: <strong>mitocondrias</strong> (respiración) y <strong>cloroplastos</strong> (fotosíntesis).</li>
+    </ul>
+    <p>Resultado: la endosimbiosis permitió la aparición de células complejas y, por ende, la vida multicelular (animales, plantas, hongos).</p>
+
+    <div class="note">🔬 La endosimbiosis es un ejemplo extremo de cómo la simbiosis puede crear nuevas estructuras y funciones biológicas.</div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ROL ECOLÓGICO -->
+  <section id="rol" class="card">
+    <h2>🌿 Rol ecológico</h2>
+    <p>La simbiosis regula y estabiliza ecosistemas a través de diversos roles:</p>
+    <ol>
+      <li><strong>Regulación poblacional:</strong> parásitos y mutualismos controlan abundancias.</li>
+      <li><strong>Reciclaje de nutrientes:</strong> hongos y bacterias simbióticas descomponen materia.</li>
+      <li><strong>Resistencia ambiental:</strong> simbiontes aumentan tolerancia (líquenes, micorrizas).</li>
+      <li><strong>Colonización:</strong> simbiontes permiten entrada a nuevos nichos.</li>
+      <li><strong>Coevolución:</strong> adapta conjuntamente las especies involucradas.</li>
+    </ol>
+
+    <div class="media">
+      <!-- Termite mound icon -->
+      <img alt="Termitas (ecosistema microbiano)" src='data:image/svg+xml;utf8,
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 140"><rect rx="8" width="100%" height="100%" fill="%230e0813"/><g transform="translate(24,20)" fill="%23ffd9c9"><path d="M40 80c10-26 30-50 80-52 36-2 60 10 80 36" stroke="%23ffd9c9" stroke-width="4" fill="none" stroke-linecap="round"/></g><text x="14" y="132" font-size="10" fill="%23fff" font-family="Poppins, sans-serif">Ecosistemas microbianos (ej. termitas)</text></svg>'>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- COEVOLUCIÓN -->
+  <section id="coevolucion" class="card">
+    <h2>🔄 Coevolución y simbiosis</h2>
+    <p>Cuando dos especies se influyen mutuamente a lo largo del tiempo, hablamos de coevolución. La interacción produce presión selectiva recíproca.</p>
+    <h3>Ejemplos</h3>
+    <ul>
+      <li><strong>Abejas y flores:</strong> flores con colores/néctar; abejas con adaptaciones para recolectarlo.</li>
+      <li><strong>Murciélagos y plantas nocturnas:</strong> flores aromáticas nocturnas y murciélagos con sentido olfativo adaptado.</li>
+      <li><strong>Corales y zooxantelas:</strong> mutualismo obligado; su ruptura produce blanqueamiento.</li>
+    </ul>
+    <div class="note">🌱 La coevolución puede culminar en dependencias obligadas o en especializaciones extremas.</div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Mecanismos y riesgos -->
+  <section id="mecanismos" class="card">
+    <h2>🧪 Mecanismos fisiológicos y moleculares</h2>
+    <ul>
+      <li><strong>Intercambio de nutrientes:</strong> azúcares, aminoácidos, minerales y gases.</li>
+      <li><strong>Comunicación química:</strong> señales y receptores para reconocer simbiontes.</li>
+      <li><strong>Adaptaciones genéticas:</strong> pérdida o modificación de rutas metabólicas en endosimbiontes.</li>
+      <li><strong>Enzimas especializadas:</strong> p. ej. protistas en termitas que degradan celulosa.</li>
+    </ul>
+
+    <h3>Riesgos y efectos negativos</h3>
+    <p>Las simbiosis pueden romperse por cambios ambientales (pH, temperatura, contaminación) y pasar de mutualistas a patógenos o dejar de existir, con efectos en cadena (ej. blanqueamiento de corales).</p>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- Aplicaciones -->
+  <section id="aplicaciones" class="card">
+    <h2>🔭 Aplicaciones y biología futura</h2>
+    <ul>
+      <li><strong>Biotecnología:</strong> diseñar simbiontes que produzcan antibióticos, enzimas o biocombustibles.</li>
+      <li><strong>Medicina:</strong> terapias probióticas basadas en microbioma.</li>
+      <li><strong>Agricultura:</strong> micorrizas y bacterias fijadoras para reducir fertilizantes.</li>
+      <li><strong>Astrobiología:</strong> estudiar si la simbiosis es probable en otros planetas.</li>
+    </ul>
+
+    <div class="note">Ejemplo práctico: bacterias mejoradas que ayudan raíces a tolerar sequía —útil para agricultura en clima extremo.</div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- AUTORES -->
+  <section id="autores" class="card">
+    <h2>👥 Autores</h2>
+    <p>
+      Diego Fernando Caicedo Ojeda<br>
+      Daniel Otero Bastidas<br>
+      Luis Sebastián Silva<br>
+      Stefania Torres Lozano
+    </p>
+
+    <p class="small">Presentación web generada a partir del material proporcionado. Diseño inspirado en las diapositivas originales (tema morado).</p>
+
+    <div style="margin-top:12px">
+      <a class="btn" href="#" onclick="window.print();return false;">Imprimir / Guardar como PDF</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© SIMBIOSIS — Proyecto estudiantil</p>
+</footer>
+
+<script>
+// Smooth scroll for nav
+document.querySelectorAll('.nav a').forEach(a=>{
+  a.addEventListener('click', e=>{
+    e.preventDefault();
+    const id = a.getAttribute('href').substring(1);
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    if(window.innerWidth <= 900) document.querySelector('.nav').classList.remove('visible');
+  });
+});
+
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+if(menuToggle){
+  menuToggle.addEventListener('click', ()=>{
+    document.querySelector('.nav').classList.toggle('visible');
+  });
+}
+
+// Highlight current section (simple)
+const sections = document.querySelectorAll('main section');
+const navLinks = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+  let fromTop = window.scrollY + 120;
+  sections.forEach(section => {
+    if(section.offsetTop <= fromTop && (section.offsetTop + section.offsetHeight) > fromTop) {
+      const id = section.getAttribute('id');
+      navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
+    }
+  });
+});
+</script>
+
+</body>
+</html>
